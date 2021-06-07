@@ -1,0 +1,15 @@
+$color: lightblue;
+body {
+  font-family: sans-serif;
+}
+.bg-color {
+  background-color: $color;
+  padding: 1em;
+  max-width: fit-content;
+  margin-bottom: 1em;
+}
+
+img {
+  display: block;
+  width: 100px;
+}
