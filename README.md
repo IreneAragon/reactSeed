@@ -436,5 +436,5 @@ npm run build
 ```
 npm start
 ```
-## Let start working with react! I hope you find this useful and enjoy coding. 
+## Let start working with react! I hope you find this useful, enjoy coding!. 
 
