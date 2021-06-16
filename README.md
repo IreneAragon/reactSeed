@@ -14,3 +14,6 @@ You'll need to have nodejs installed in your computer, to know if you already ha
 ```
 npm start
 ```
+
+### You can start using the seed or you can build it by yourself following these steps, dare you?
+
