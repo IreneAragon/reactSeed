@@ -13,7 +13,6 @@ module.exports = {
   output: {
     filename: "[name].[chunkhash].js",
     path: path.resolve(__dirname, "dist"),
-    // publicPath: "./",
   },
   devServer: {
     port: 8081,
@@ -43,30 +42,18 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        // use: [
-        //   {
-        //     loader: "style-loader",
-        //   },
-        //   {
-        //     loader: "css-loader",
-        //   },
-        // ],
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(png|jpg)$/,
         type: "asset/resource",
       },
-      {
-        test: /\.html$/,
-        loader: "html-loader",
-      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html", //Name of file in ./dist/
-      template: "index.html", //Name of template in ./src
+      filename: "index.html",
+      template: "index.html",
       scriptLoading: "blocking",
     }),
     new CleanWebpackPlugin(),
