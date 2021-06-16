@@ -330,35 +330,111 @@ npm i rimraf --save-dev
 ```
 
 #### 13.- Manage Images 
+- Add into index.html an image container for testing 
+```
+<div id="imgContainer"></div>
+```
+- Create new 'content' folder into src and save one image
+- Import the images from `index.js`
 
-
-
-
-
-
-
-
-
-
-
-
+_index.js_
 ```diff
++ import logoImg from "./content/react2.png";
 
++ const img = document.createElement('img');
++ img.src = logoImg;
++ document.getElementById('imgContainer').appendChild(img);
 ```
 
+- Add some setting to `webpack.config.js`
+_webpack.config.js_
+```diff
++     {
++       test: /\.(png|jpg)$/,
++       type: 'asset/resource',
++     },
+```
 
+- Add css styles if is necesary
+```diff
++ img {
++   display: block;
++   width: 200px;
++ }
+```
 
+#### 14.- Install React
+```
+npm install react react-dom --save
+```
 
+- Add a new container for react into index.html
+```
+<div id="root"></div>
+```
 
+- Change the .js extensions to .jsx 
+- Import React and React DOM into `index.jsx`
+```diff
++ import React from "react";
++ import ReactDOM from "react-dom";
+```
 
+- Create a test component 
+```diff
++ ReactDOM.render(
++   <h1>Hello, world!</h1>,
++   document.getElementById('root')
++ );
+```
 
+- Install babel preset for react, update `.babelrc` and add some settings to `webpack.config.js`
+```
+npm install @babel/preset-react --save-dev
+```
 
+_.babelrc_
+```diff
+- "presets": ["@babel/preset-env"]
++ "presets": ["@babel/preset-env", "@babel/preset-react"]
+```
 
+_webpack.config.js_
+- Add the jsx extension to resolve
+```diff
++   resolve: {
++     extensions: ['.js', '.jsx'],
++   },
+```
 
+- Modify the entry point
+```diff
+-     app: ['./index.js'],
++     app: ['./index.jsx'],
+```
 
+- Modify the babel loader
+```diff
+-     test: /\.js$/,
++     test: /\.jsx?$/,
+```
 
+#### 15.- Server configuration (optional)
+If you want to change the output port or open the browser automatically you can add more settings 
+_webpack.config.js _
+```diff
++ devServer: {
++   port: 8081,
++   open: true,
++ },
+```
 
-
-
-
+#### 16.- That's all! now you can run `npm run build` or `npm start` 
+```
+npm run build
+```
+```
+npm start
+```
+## Let start working with react! I hope you find this useful and enjoy coding. 
 
