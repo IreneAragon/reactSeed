@@ -156,5 +156,209 @@ _package.json_
 },
 ```
 
-            
+#### 7.- Install HTML Webpack Plugin and add some setting to `webpack.config.js`
+```
+npm install html-webpack-plugin --save-dev
+```
+
+_webpack.config.js_
+
+- Add at the beginning of the file
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+```
+
+- Add inside `module.exports`
+```diff
++ plugins: [
++   new HtmlWebpackPlugin({
++     filename: 'index.html', //Name of file in ./dist/
++     template: 'index.html', //Name of template in ./src
++     scriptLoading:'blocking',
++    }),
++ ],
+```
+
+#### 8.- Install CSS loaders and add some settings to  `webpack.config.js`
+```
+npm install style-loader css-loader --save-dev
+``` 
+_webpack.config.js_
+
+- Update the entry point 
+```diff
+-  entry: ['./index.js'],
++ entry: ['../index.js', './mystyles.css'],
+```
+
+- Add this settings inside `module: {rules[ add here ]}`
+```diff
++     {
++       test: /\.css$/,
++       exclude: /node_modules/,
++       use: [
++         {
++           loader: 'style-loader',
++         },
++         {
++           loader: 'css-loader',
++         },
++       ],
++     },
+``` 
+
+- Add configuration to the entry point, `module.exports`
+```diff
++  entry: {
++    app: './index.js',
++    appStyles: [
++      './mystyles.css',
++    ],
++  },
+```
+
+- Add into output 
+```diff
++ output: {
+    ...
++   filename: '[name].[chunkhash].js',
++ },
+```
+
+#### 9.- Install Clean Webpack Plugin to remove/clean the build folder automatically and add some settings into `webpack.config.js`. 
+```
+npm install clean-webpack-plugin --save-dev
+```
+
+_webpack.config.js_
+
+- Add at the beginning of the file
+```diff
++ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
++ const path = require('path')
+``` 
+
+- Add inside output
+```diff
++ path: path.resolve(process.cwd(), 'dist'),
+``` 
+
+- Add inside plugins
+```diff
++ new CleanWebpackPlugin(),
+```
+
+#### 10.- Install `MiniCssExtractPlugin` to keep separate the css files and add some settings into `webpack.config.js`. 
+```
+npm install mini-css-extract-plugin --save-dev
+``` 
+
+_webpack.config.js_
+
+- Replace the "use" array of the css rules with MiniCssExtractPlugin configuration
+```diff
+-        use: [
+-          {
+-            loader: 'style-loader',
+-          },
+-          {
+-            loader: 'css-loader',
+-          },
+-         ],
++       use: [
++          MiniCssExtractPlugin.loader,
++         "css-loader"
++        ]
+```
+
+- Add the plugin object into plugins
+```diff
++   new MiniCssExtractPlugin({
++     filename: "[name].css",
++     chunkFilename: "[id].css"
++   }),
+```
+
+#### 11.- Installing SASS
+- Install SASS 
+```
+npm install sass sass-loader --save-dev
+```
+- Create some sass elements into css files for testing
+- Change the .css extension to .scss and update `webpack.config.js`
+
+_webpack.config.js_
+
+- Update `appStyles` 
+```diff
+appStyles: [
+-     './mystyles.css',
++     './mystyles.scss',
+```
+
+- Add a new entry point for sass files into rules 
+```diff
++     {
++       test: /\.scss$/,
++       exclude: /node_modules/,
++       use: [
++         MiniCssExtractPlugin.loader,
++         "css-loader",
++         {
++           loader: "sass-loader",
++           options: {
++             implementation: require("sass")
++           }
++         },
++       ]
++     },
+```
+
+#### 12.- Install RIMRAF to delete and create automatically the dist folder when run `npm run build` 
+```
+npm i rimraf --save-dev
+``` 
+
+- Let's configure the `package.json` by adding a build script 
+
+```diff
+"scripts": {  
+    "start": "webpack serve --mode development",
+-   "build": "webpack --mode development"
++   "build": "rimraf ./dist && webpack --mode development"      
+},
+```
+
+#### 13.- Manage Images 
+
+
+
+
+
+
+
+
+
+
+
+
+```diff
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
